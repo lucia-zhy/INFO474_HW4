@@ -5,3 +5,8 @@ html, body {
 canvas {
   display: block;
 }
+h1 {
+  color:palevioletred;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font: 20px;
+}

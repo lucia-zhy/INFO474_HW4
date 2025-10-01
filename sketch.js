@@ -32,7 +32,6 @@ function draw() {
   textSize(20);
   fill("black");
   text('Hi! My name is Lucia :)', currentWidth/2, shapeHeight/2);
-  
 
 
   // draw line for horizon
@@ -46,7 +45,6 @@ function draw() {
   rect(0, horizon, width, height);
 
 }
-
 
 
 function windowResized() {
