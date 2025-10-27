@@ -24,5 +24,13 @@ registerSketch('sk3', function (p) {
     p.stroke(0);
     p.strokeWeight(1);
     p.line(midX, y + 16, midX, y + bookH - 16);
+
+    // page number at the bottom
+    const pageNum = p.minute(); // page change every minute
+    p.noStroke();
+    p.fill(0);
+    p.textSize(28);
+    p.text('Page', midX - 45, y + bookH - 25);
+    p.text(p.nf(pageNum, 2), midX + 30, y + bookH - 25);
   };
 });
