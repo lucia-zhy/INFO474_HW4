@@ -5,10 +5,10 @@ registerSketch('sk2', function (p) {
   };
   p.draw = function () {
     p.background(255);
-    p.fill(100, 150, 240);
-    p.textSize(32);
-    p.textAlign(p.CENTER, p.CENTER);
-    p.text('HWK #4. A', p.width / 2, p.height / 2);
+    const w = p.width - 48*2;
+    const h = p.height - 48*2;
+    p.fill(255, 220);
+    p.rect(48, 48, w, h, 28);
   };
   p.windowResized = function () { 
     p.resizeCanvas(p.windowWidth, p.windowHeight); 
