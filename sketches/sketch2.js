@@ -1,10 +1,10 @@
 // Instance-mode sketch for tab 2
 registerSketch('sk2', function (p) {
-  let myFont;
+  // let myFont;
 
-  p.preload = function () {
-    myFont = p.loadFont('fonts/digital-7 (mono).ttf');
-  }
+  // p.preload = function () {
+  //   myFont = p.loadFont('fonts/digital-7 (mono).ttf');
+  // }
 
   p.setup = function () {
     p.createCanvas(800, 800);
@@ -24,8 +24,8 @@ registerSketch('sk2', function (p) {
     const m = minute();
     const s = second();
     const timeString = nf(h, 2) + ':' + nf(m, 2) + ':' + nf(s, 2);
-    p.textFont(myFont);
-    p.textSize(120);
+    p.textFont('Georgia');
+    p.textSize(115);
     p.fill(0);
     p.textAlign(CENTER, CENTER);
 
