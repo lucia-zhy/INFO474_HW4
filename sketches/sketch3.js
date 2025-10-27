@@ -15,8 +15,14 @@ registerSketch('sk3', function (p) {
     const y = (p.height - bookH) / 2;
 
     p.stroke(0);
-    p.strokeWeight(3);
+    p.strokeWeight(2);
     p.fill(255);
     p.rect(x, y, bookW, bookH, 0);
+
+    // middle line of the book
+    const midX = x + bookW / 2;
+    p.stroke(0);
+    p.strokeWeight(1);
+    p.line(midX, y + 16, midX, y + bookH - 16);
   };
 });
