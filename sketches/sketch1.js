@@ -46,7 +46,6 @@ function draw() {
 
 }
 
-
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   horizon = height / 2; // recalc horizon after resize
