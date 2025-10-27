@@ -5,10 +5,12 @@ registerSketch('sk2', function (p) {
   };
   p.draw = function () {
     p.background(255);
-    const w = p.width - 48*2;
-    const h = p.height - 48*2;
     p.fill(255, 220);
-    p.rect(48, 48, w, h, 28);
+    let rectW = 570;
+    let rectH = 420;
+    let x = (width - rectW) / 2;
+    let y = (height - rectH) / 2;
+    p.rect(x, y, rectW, rectH, 10);
   };
   p.windowResized = function () { 
     p.resizeCanvas(p.windowWidth, p.windowHeight); 
