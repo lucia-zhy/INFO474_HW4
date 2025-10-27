@@ -24,6 +24,14 @@ registerSketch('sk2', function (p) {
     const h = p.hour();
     const m = p.minute();
     const s = p.second();
+    // ambient background colors by different time ranges
+    if (h >= 6 && h < 12) { // morning range - sunrise - soft orange/yellow
+      p.background(255, 223, 186);
+    } else if (h >= 12 && h < 18) { // afternoon range - warm golden tones
+      p.background(255, 183, 77);
+    } else { // night & midnight — dark blue
+      p.background(25, 25, 112);
+    }
     const timeString = p.nf(h, 2) + ':' + p.nf(m, 2) + ':' + p.nf(s, 2);
     p.textFont(myFont);
     p.textSize(115);
