@@ -15,8 +15,8 @@ registerSketch('sk2', function (p) {
     p.background(255);
     // create the rectangle shape of the clock
     p.fill(255, 220);
-    const rectW = 570;
-    const rectH = 420;
+    const rectW = 480;
+    const rectH = 330;
     const x = (p.width - rectW) / 2;
     const y = (p.height - rectH) / 2;
     p.rect(x, y, rectW, rectH, 10);
