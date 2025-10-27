@@ -3,17 +3,18 @@ registerSketch('sk2', function (p) {
   let myFont;
 
   p.preload = function () {
-    myFont = p.loadFont('fonts/digital-7 (mono).ttf');
+    myFont = p.loadFont('fonts/digital-7-mono.ttf');
   }
 
   p.setup = function () {
     p.createCanvas(800, 800);
+    p.textAlign(p.CENTER, p.CENTER);
   };
 
   p.draw = function () {
     p.background(255);
-    p.fill(255, 220);
     // create the rectangle shape of the clock
+    p.fill(255, 220);
     const rectW = 570;
     const rectH = 420;
     const x = (p.width - rectW) / 2;
@@ -24,10 +25,9 @@ registerSketch('sk2', function (p) {
     const m = p.minute();
     const s = p.second();
     const timeString = p.nf(h, 2) + ':' + p.nf(m, 2) + ':' + p.nf(s, 2);
-    p.textFont('myFont');
+    p.textFont(myFont);
     p.textSize(115);
     p.fill(0);
-    p.textAlign(CENTER, CENTER);
 
     p.push();
     p.translate(p.width / 2, p.height / 2);
