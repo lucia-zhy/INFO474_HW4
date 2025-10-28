@@ -29,6 +29,7 @@ registerSketch('sk4', function (p) {
 
   // helper function to format time as mm:ss
   function mmss(sec) {
+    sec = Math.max(0, Math.floor(sec)); 
     const m = Math.floor(sec / 60);
     const s = Math.floor(sec % 60);
     return p.nf(m, 2) + ':' + p.nf(s, 2);
@@ -37,19 +38,23 @@ registerSketch('sk4', function (p) {
   p.setup = function () {
     p.createCanvas(W, H);
     p.textAlign(p.CENTER, p.CENTER);
+    p.pixelDensity(window.devicePixelRatio || 1);
     p.angleMode(p.DEGREES);
+    p.textFont('Georgia'); 
   };
 
   p.draw = function () {
     p.background(255);
 
     // Update remaining time if running
+    let elapsedSecSmooth = 0; 
     if (running) {
-      const elapsed = (p.millis() - startMillis) / 1000;
-      remaining = Math.max(0, DURATION - elapsed);
-      if (remaining <= 0) {
-        running = false;
-      }
+      elapsedSecSmooth = (p.millis() - startMillis) / 1000; 
+      const elapsedSecInt = Math.floor(elapsedSecSmooth);
+      remaining = Math.max(0, DURATION - elapsedSecInt);
+      if (remaining <= 0) running = false;
+    } else {
+      elapsedSecSmooth = DURATION - remaining;
     }
 
     // outer circle and inner circle
@@ -62,22 +67,32 @@ registerSketch('sk4', function (p) {
     p.strokeWeight(4);
     p.circle(cx, cy, innerR * 2);
 
-    // draw the time circle marks when haven't started yet
-    if (!running && remaining === DURATION) {
-      const dotR = 10; 
-      const dotRadius = (outerR + innerR) / 2;
-      const dotX = cx;
-      const dotY = cy - dotRadius;
-      p.noStroke();
-      p.fill(0);
-      p.circle(dotX, dotY, dotR * 3);
-    }
+    // The moving dot along the circle path
+    const midR = (outerR + innerR) / 2;
+    const progress = p.constrain(elapsedSecSmooth / DURATION, 0, 1);
+    const angle = -90 + 360 * progress;
+    const dotX = cx + midR * p.cos(angle);
+    const dotY = cy + midR * p.sin(angle);
+
+    p.noStroke();
+    p.fill(0);
+    p.circle(dotX, dotY, 30);  
+
+    // // draw the time circle marks when haven't started yet
+    // if (!running && remaining === DURATION) {
+    //   const dotR = 10; 
+    //   const dotRadius = (outerR + innerR) / 2;
+    //   const dotX = cx;
+    //   const dotY = cy - dotRadius;
+    //   p.noStroke();
+    //   p.fill(0);
+    //   p.circle(dotX, dotY, dotR * 3);
+    // }
 
     // Text display
     p.fill(0);
     p.textSize(30);
     p.textStyle(p.BOLD);
-    p.textFont('Georgia');
     p.text('Focus Time 🌱🌲⏰', cx, cy - 60);
     p.textStyle(p.NORMAL);
     p.textSize(120);
@@ -99,6 +114,7 @@ registerSketch('sk4', function (p) {
     p.textSize(20);
     p.text('Start ▶️', startBtn.x + startBtn.w / 2, startBtn.y + startBtn.h / 2);
   };
+
   // function of start
   p.mousePressed = function () {
     if (p.mouseX >= startBtn.x && p.mouseX <= startBtn.x + startBtn.w &&
