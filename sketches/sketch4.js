@@ -52,6 +52,7 @@ registerSketch('sk4', function (p) {
     p.textStyle(p.BOLD);
     p.textFont('Georgia');
     p.text('Focus Time 🌱🌲⏰', cx, cy - 60);
+    p.textStyle(p.NORMAL);
     p.textSize(120);
     p.text(mmss(remaining), cx, cy + 10);
   };
