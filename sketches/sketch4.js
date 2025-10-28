@@ -99,7 +99,7 @@ registerSketch('sk4', function (p) {
     const dotY = cy + midR * p.sin(angle);   
     p.noStroke();
     p.fill(BABY_GREEN);
-    p.circle(dotX, dotY, 60);
+    p.circle(dotX, dotY, 58);
 
     // Text display
     p.fill(0);
