@@ -1,6 +1,6 @@
 // Instance-mode sketch for tab 4
 registerSketch('sk4', function (p) {
-  // 画布与位置参数
+  // canvas dimensions and circle parameters
   const W = 800, H = 800;
   const cx = W / 2; // circle center x
   const cy = H / 2; // circle center y
