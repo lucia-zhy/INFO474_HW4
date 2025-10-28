@@ -76,7 +76,8 @@ registerSketch('sk3', function (p) {
     const Rcw = (Rx1 - Rx0) / gridCols, Rch = (Ry1 - Ry0) / gridRows;
 
     // faint grid lines on both pages (for good look)
-    p.stroke(0, 40); p.strokeWeight(0.5);
+    p.stroke(0, 40); 
+    p.strokeWeight(0.5);
     for (let c = 1; c < gridCols; c++) {
       p.line(Lx0 + c*Lcw, Ly0, Lx0 + c*Lcw, Ly1);
       p.line(Rx0 + c*Rcw, Ry0, Rx0 + c*Rcw, Ry1);
@@ -85,6 +86,8 @@ registerSketch('sk3', function (p) {
       p.line(Lx0, Ly0 + r*Lch, Lx1, Ly0 + r*Lch);
       p.line(Rx0, Ry0 + r*Rch, Rx1, Ry0 + r*Rch);
     }
+
+    const highlight = { r: 93, g: 184, b: 284};
 
     // numbers on both pages
     p.noStroke();
@@ -98,7 +101,8 @@ registerSketch('sk3', function (p) {
       const cx = Lx0 + col * Lcw + Lcw/2, cy = Ly0 + row * Lch + Lch/2;
       if (i <= leftCount) {
         // highlight the current second number
-        p.fill(i === leftCount ? 255 : 0, i === leftCount ? 143 : 0, i === leftCount ? 223 : 0);
+        const isCurrent = (i === leftCount && s !== 0);
+        p.fill(isCurrent ? highlight.r : 0, isCurrent ? highlight.g : 0, isCurrent ? highlight.b : 0);
         p.text(i.toString(), cx, cy);
       }
     }
@@ -111,7 +115,7 @@ registerSketch('sk3', function (p) {
       const cx = Rx0 + col * Rcw + Rcw/2, cy = Ry0 + row * Rch + Rch/2;
       // highlight the current second number
       const isCurrent = (30 + rightCount) === val;
-      p.fill(isCurrent ? 255 : 0, isCurrent ? 143 : 0, isCurrent ? 223 : 0);
+      p.fill(isCurrent ? highlight.r : 0, isCurrent ? highlight.g : 0, isCurrent ? highlight.b : 0);
       p.text(val.toString(), cx, cy);
     }
   };
