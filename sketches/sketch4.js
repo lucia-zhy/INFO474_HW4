@@ -70,7 +70,7 @@ registerSketch('sk4', function (p) {
 
     // outer circle and inner circle
     p.noFill();
-    p.stroke(0);
+    p.stroke(DARK_GREEN);
     p.strokeWeight(8);
     p.circle(cx, cy, outerR * 2);
 
@@ -99,7 +99,7 @@ registerSketch('sk4', function (p) {
     const dotY = cy + midR * p.sin(angle);   
     p.noStroke();
     p.fill(BABY_GREEN);
-    p.circle(dotX, dotY, 30);
+    p.circle(dotX, dotY, 60);
 
     // Text display
     p.fill(0);
