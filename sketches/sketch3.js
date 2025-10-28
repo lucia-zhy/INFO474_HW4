@@ -48,11 +48,19 @@ registerSketch('sk3', function (p) {
 
     // chapter number at the top left
     const chapterNum = (p.hour() % 24); // 0–23
+    const chapterY = y + 20; // align with top of page number
     p.textAlign(p.LEFT, p.TOP);
     p.textSize(32);
     p.textFont('Palatino');
     p.textStyle(p.BOLD);
     p.text('Chapter ' + p.nf(chapterNum, 2), x + 16, y + 14);
+
+    p.textAlign(p.RIGHT, p.TOP);
+    p.textStyle(p.NORMAL);
+    p.textSize(20);
+    p.fill('black');
+    p.text('FOCUS ON YOUR STUDY🚀🖊️', x + bookW - 7, chapterY);
+
     p.textStyle(p.NORMAL);   
     p.textAlign(p.CENTER, p.CENTER);
 
