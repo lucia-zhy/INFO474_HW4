@@ -7,8 +7,21 @@ registerSketch('sk4', function (p) {
   const outerR = 280; // outer circle radius
   const innerR = 220; // inner circle radius
 
+  // Define the focus time
+  const FOCUS_MIN = 25; 
+  const DURATION = FOCUS_MIN * 60; 
+  let remaining = DURATION;
+
+  // helper function to format time as mm:ss
+  function mmss(sec) {
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return p.nf(m, 2) + ':' + p.nf(s, 2);
+  }
+
   p.setup = function () {
     p.createCanvas(W, H);
+    p.textAlign(p.CENTER, p.CENTER);
     p.angleMode(p.DEGREES);
   };
 
@@ -32,5 +45,14 @@ registerSketch('sk4', function (p) {
     p.noStroke();
     p.fill(0);
     p.circle(dotX, dotY, dotR * 3);
+
+    // Text display
+    p.fill(0);
+    p.textSize(30);
+    p.textStyle(p.BOLD);
+    p.textFont('Georgia');
+    p.text('Focus Time 🌱🌲⏰', cx, cy - 60);
+    p.textSize(120);
+    p.text(mmss(remaining), cx, cy + 10);
   };
 });
