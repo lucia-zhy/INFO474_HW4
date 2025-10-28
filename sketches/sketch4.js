@@ -12,6 +12,21 @@ registerSketch('sk4', function (p) {
   const DURATION = FOCUS_MIN * 60; 
   let remaining = DURATION;
 
+  // Start UI state
+  let running = false;
+  let startMillis = 0; 
+
+  // Start button parameters  
+  const btnW = 150;
+  const btnH = 48;
+  const btnY = cy + outerR + 56;
+  const startBtn = {
+    x: cx - btnW / 2,
+    y: btnY - btnH / 2,
+    w: btnW,
+    h: btnH
+  };
+
   // helper function to format time as mm:ss
   function mmss(sec) {
     const m = Math.floor(sec / 60);
@@ -27,6 +42,16 @@ registerSketch('sk4', function (p) {
 
   p.draw = function () {
     p.background(255);
+
+    // Update remaining time if running
+    if (running) {
+      const elapsed = (p.millis() - startMillis) / 1000;
+      remaining = Math.max(0, DURATION - elapsed);
+      if (remaining <= 0) {
+        running = false;
+      }
+    }
+
     // outer circle and inner circle
     p.noFill();
     p.stroke(0);
@@ -38,13 +63,15 @@ registerSketch('sk4', function (p) {
     p.circle(cx, cy, innerR * 2);
 
     // draw the time circle marks when haven't started yet
-    const dotR = 10; 
-    const dotRadius = (outerR + innerR) / 2;
-    const dotX = cx;
-    const dotY = cy - dotRadius;
-    p.noStroke();
-    p.fill(0);
-    p.circle(dotX, dotY, dotR * 3);
+    if (!running && remaining === DURATION) {
+      const dotR = 10; 
+      const dotRadius = (outerR + innerR) / 2;
+      const dotX = cx;
+      const dotY = cy - dotRadius;
+      p.noStroke();
+      p.fill(0);
+      p.circle(dotX, dotY, dotR * 3);
+    }
 
     // Text display
     p.fill(0);
@@ -55,5 +82,32 @@ registerSketch('sk4', function (p) {
     p.textStyle(p.NORMAL);
     p.textSize(120);
     p.text(mmss(remaining), cx, cy + 10);
+
+    // Start button interaction (INTERACTION with mousse)
+    const hovering =
+      p.mouseX >= startBtn.x && p.mouseX <= startBtn.x + startBtn.w &&
+      p.mouseY >= startBtn.y && p.mouseY <= startBtn.y + startBtn.h;
+
+    // button
+    p.stroke(0);
+    p.fill(hovering ? 240 : 255);
+    p.rect(startBtn.x, startBtn.y, startBtn.w, startBtn.h, 14);
+
+    // button words
+    p.noStroke();
+    p.fill(0);
+    p.textSize(20);
+    p.text('Start ▶️', startBtn.x + startBtn.w / 2, startBtn.y + startBtn.h / 2);
+  };
+  // function of start
+  p.mousePressed = function () {
+    if (p.mouseX >= startBtn.x && p.mouseX <= startBtn.x + startBtn.w &&
+      p.mouseY >= startBtn.y && p.mouseY <= startBtn.y + startBtn.h) {
+      if (!running && remaining > 0) {
+        running = true;
+        startMillis = p.millis();
+        remaining = DURATION;
+      }
+    }
   };
 });
