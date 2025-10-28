@@ -82,7 +82,7 @@ registerSketch('sk2', function (p) {
     // }
 
     p.push();
-    p.translate(p.width / 2 - 15, p.height / 2 - 15);
+    p.translate(p.width / 2 , p.height / 2 - 10);
     p.scale(1, 1.2);
     p.text(timeString, 0, 0);
     p.pop();
