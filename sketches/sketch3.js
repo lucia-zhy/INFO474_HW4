@@ -31,6 +31,18 @@ registerSketch('sk3', function (p) {
     p.fill(0);
     p.textFont('Georgia');
     p.textSize(25);
+
+    // when time = 00, highlight the page number
+    if (pageNum === 0) {
+      p.fill(255, 143, 223); // pink highlight
+      p.textSize(18);
+      p.text('📖 New Chapter Begins', midX, y + bookH - 55);
+      p.textSize(25);
+      p.fill(0);
+    } else {
+      p.fill(0);
+    }
+
     p.text('Page', midX - 45, y + bookH - 25);
     p.text(p.nf(pageNum, 2), midX + 30, y + bookH - 25);
 
@@ -41,6 +53,5 @@ registerSketch('sk3', function (p) {
     p.text('Chapter ' + p.nf(chapterNum, 2), x + 16, y + 14);
     p.textAlign(p.CENTER, p.CENTER);
 
-    
   };
 });
