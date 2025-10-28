@@ -116,8 +116,9 @@ registerSketch('sk4', function (p) {
       p.mouseY >= startBtn.y && p.mouseY <= startBtn.y + startBtn.h;
 
     // button
-    p.stroke(DARK_GREEN);           
-    p.fill(hovering ? p.color('#E9F7EF') : 255); 
+    p.stroke(DARK_GREEN);  
+      p.strokeWeight(3);
+    p.fill(hovering ? p.color('#E9F7EF') : 255);
     p.rect(startBtn.x, startBtn.y, startBtn.w, startBtn.h, 14);
   
     p.noStroke();
