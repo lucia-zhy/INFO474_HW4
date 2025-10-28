@@ -29,8 +29,18 @@ registerSketch('sk3', function (p) {
     const pageNum = p.minute(); // page change every minute
     p.noStroke();
     p.fill(0);
-    p.textSize(28);
+    p.textFont('Georgia');
+    p.textSize(25);
     p.text('Page', midX - 45, y + bookH - 25);
     p.text(p.nf(pageNum, 2), midX + 30, y + bookH - 25);
+
+    // chapter number at the top left
+    const chapterNum = (p.hour() % 24); // 0–23
+    p.textAlign(p.LEFT, p.TOP);
+    p.textSize(28);
+    p.text('Chapter ' + p.nf(chapterNum, 2), x + 16, y + 14);
+    p.textAlign(p.CENTER, p.CENTER);
+
+    
   };
 });
