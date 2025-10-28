@@ -53,6 +53,7 @@ registerSketch('sk3', function (p) {
     p.textFont('Palatino');
     p.textStyle(p.BOLD);
     p.text('Chapter ' + p.nf(chapterNum, 2), x + 16, y + 14);
+    p.textStyle(p.NORMAL);   
     p.textAlign(p.CENTER, p.CENTER);
 
     // Dynamics: show seconds as numbers appearing on the two pages
@@ -87,12 +88,12 @@ registerSketch('sk3', function (p) {
       p.line(Rx0, Ry0 + r*Rch, Rx1, Ry0 + r*Rch);
     }
 
-    const highlight = { r: 93, g: 184, b: 284};
+    const highlight = { r: 25, g: 176, b: 255};
 
     // numbers on both pages
     p.noStroke();
     p.textFont('Times New Roman');
-    p.textSize(20);
+    p.textSize(25);
     p.textSize(Math.min(Lcw, Lch) * 0.35);
 
     // left page (1...30)
@@ -101,7 +102,7 @@ registerSketch('sk3', function (p) {
       const cx = Lx0 + col * Lcw + Lcw/2, cy = Ly0 + row * Lch + Lch/2;
       if (i <= leftCount) {
         // highlight the current second number
-        const isCurrent = (i === leftCount && s !== 0);
+        const isCurrent = (i === leftCount && s > 0 && s <= 30);
         p.fill(isCurrent ? highlight.r : 0, isCurrent ? highlight.g : 0, isCurrent ? highlight.b : 0);
         p.text(i.toString(), cx, cy);
       }
