@@ -57,6 +57,12 @@ registerSketch('sk4', function (p) {
       elapsedSecSmooth = DURATION - remaining;
     }
 
+    // process path
+    const progress = p.constrain(elapsedSecSmooth / DURATION, 0, 1); 
+    const midR = (outerR + innerR) / 2;                        
+    const ringDia = midR * 2;                
+    const ringThickness = (outerR - innerR) - 2;
+
     // outer circle and inner circle
     p.noFill();
     p.stroke(0);
@@ -67,27 +73,28 @@ registerSketch('sk4', function (p) {
     p.strokeWeight(4);
     p.circle(cx, cy, innerR * 2);
 
-    // The moving dot along the circle path
-    const midR = (outerR + innerR) / 2;
-    const progress = p.constrain(elapsedSecSmooth / DURATION, 0, 1);
-    const angle = -90 + 360 * progress;
-    const dotX = cx + midR * p.cos(angle);
-    const dotY = cy + midR * p.sin(angle);
+    // process ring
+    p.noFill();
+    p.strokeCap(p.ROUND);
+    p.stroke(230); 
+    p.strokeWeight(ringThickness);  
+    p.arc(cx, cy, ringDia, ringDia, -90, 270);
 
+    // already moved part of the ring
+    const startAng = -90;  
+    const endAng   = startAng + 360 * progress;
+    if (progress > 0) {
+      p.stroke(0); 
+      p.arc(cx, cy, ringDia, ringDia, startAng, endAng);
+    }
+
+    // moving dot
+    const angle = endAng;  
+    const dotX = cx + midR * p.cos(angle); 
+    const dotY = cy + midR * p.sin(angle);   
     p.noStroke();
     p.fill(0);
-    p.circle(dotX, dotY, 30);  
-
-    // // draw the time circle marks when haven't started yet
-    // if (!running && remaining === DURATION) {
-    //   const dotR = 10; 
-    //   const dotRadius = (outerR + innerR) / 2;
-    //   const dotX = cx;
-    //   const dotY = cy - dotRadius;
-    //   p.noStroke();
-    //   p.fill(0);
-    //   p.circle(dotX, dotY, dotR * 3);
-    // }
+    p.circle(dotX, dotY, 30);
 
     // Text display
     p.fill(0);
