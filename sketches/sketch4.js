@@ -186,6 +186,9 @@ registerSketch('sk4', function (p) {
         running = true;
         paused = false;
         runStartMillis = p.millis();
+      } else if (running && paused && remaining > 0) {
+        paused = false;
+        runStartMillis = p.millis();
       }
     }
     
@@ -193,8 +196,10 @@ registerSketch('sk4', function (p) {
     if (p.mouseX >= resetBtn.x && p.mouseX <= resetBtn.x + resetBtn.w &&
       p.mouseY >= resetBtn.y && p.mouseY <= resetBtn.y + resetBtn.h) {
       running = false;
-      remaining = DURATION;  
-      startMillis = 0; 
+      paused = false;
+      elapsedBaseSec = 0;     
+      remaining = DURATION;
+      runStartMillis = 0;   
     }
 
     // Pause
