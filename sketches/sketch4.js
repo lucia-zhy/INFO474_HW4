@@ -75,15 +75,13 @@ registerSketch('sk4', function (p) {
   p.draw = function () {
     p.background(255);
 
-    // Update remaining time if running
-    let elapsedSecSmooth = 0; 
-    if (running) {
-      elapsedSecSmooth = (p.millis() - startMillis) / 1000; 
-      const elapsedSecInt = Math.floor(elapsedSecSmooth);
-      remaining = Math.max(0, DURATION - elapsedSecInt);
-      if (remaining <= 0) running = false;
-    } else {
-      elapsedSecSmooth = DURATION - remaining;
+    let elapsedSecSmooth = elapsedBaseSec;
+    if (running && !paused) {
+      elapsedSecSmooth += (p.millis() - runStartMillis) / 1000;
+    }
+    remaining = Math.max(0, DURATION - Math.floor(elapsedSecSmooth));
+    if (remaining <= 0 && running) {
+      running = false;
     }
 
     // process path
@@ -186,8 +184,8 @@ registerSketch('sk4', function (p) {
       p.mouseY >= startBtn.y && p.mouseY <= startBtn.y + startBtn.h) {
       if (!running && remaining > 0) {
         running = true;
-        startMillis = p.millis();
-        remaining = DURATION;
+        paused = false;
+        runStartMillis = p.millis();
       }
     }
     
