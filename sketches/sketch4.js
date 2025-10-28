@@ -23,5 +23,14 @@ registerSketch('sk4', function (p) {
     // inner circle
     p.strokeWeight(4);
     p.circle(cx, cy, innerR * 2);
+
+    // draw the time circle marks when haven't started yet
+    const dotR = 10; 
+    const dotRadius = (outerR + innerR) / 2;
+    const dotX = cx;
+    const dotY = cy - dotRadius;
+    p.noStroke();
+    p.fill(0);
+    p.circle(dotX, dotY, dotR * 3);
   };
 });
