@@ -20,6 +20,8 @@ registerSketch('sk4', function (p) {
     p.strokeWeight(8);
     p.circle(cx, cy, outerR * 2);
 
-    
+    // inner circle
+    p.strokeWeight(4);
+    p.circle(cx, cy, innerR * 2);
   };
 });
