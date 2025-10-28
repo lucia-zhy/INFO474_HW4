@@ -49,8 +49,9 @@ registerSketch('sk3', function (p) {
     // chapter number at the top left
     const chapterNum = (p.hour() % 24); // 0–23
     p.textAlign(p.LEFT, p.TOP);
-    p.textSize(28);
+    p.textSize(32);
     p.textFont('Palatino');
+    p.textStyle(p.BOLD);
     p.text('Chapter ' + p.nf(chapterNum, 2), x + 16, y + 14);
     p.textAlign(p.CENTER, p.CENTER);
 
@@ -89,7 +90,6 @@ registerSketch('sk3', function (p) {
     p.noStroke();
     p.textFont('Times New Roman');
     p.textSize(20);
-    p.fill(255, 0,0);
     p.textSize(Math.min(Lcw, Lch) * 0.35);
 
     // left page (1...30)
