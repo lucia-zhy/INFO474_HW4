@@ -25,8 +25,20 @@ registerSketch('sk4', function (p) {
   const btnW = 150;
   const btnH = 48;
   const btnY = cy + outerR + 56;
+
+  const GAP = 40; 
+  const totalWidth = btnW * 2 + GAP;  
+  const buttonsStartX = cx - totalWidth / 2;
   const startBtn = {
-    x: cx - btnW / 2,
+    x: buttonsStartX,
+    y: btnY - btnH / 2,
+    w: btnW,
+    h: btnH
+  };
+
+  // Reset button parameters
+  const resetBtn = {
+    x: buttonsStartX + btnW + GAP,
     y: btnY - btnH / 2,
     w: btnW,
     h: btnH
@@ -117,7 +129,7 @@ registerSketch('sk4', function (p) {
 
     // button
     p.stroke(DARK_GREEN);  
-      p.strokeWeight(3);
+    p.strokeWeight(3);
     p.fill(hovering ? p.color('#E9F7EF') : 255);
     p.rect(startBtn.x, startBtn.y, startBtn.w, startBtn.h, 14);
   
@@ -125,6 +137,23 @@ registerSketch('sk4', function (p) {
     p.fill(DARK_GREEN);  
     p.textSize(20);
     p.text('Start ▶️', startBtn.x + startBtn.w / 2, startBtn.y + startBtn.h / 2);
+
+    // Reset button interaction (INTERACTION with mousse)
+    // ----- Reset button (use resetBtn + hoveringReset) -----
+    const hoveringReset =
+      p.mouseX >= resetBtn.x && p.mouseX <= resetBtn.x + resetBtn.w &&
+      p.mouseY >= resetBtn.y && p.mouseY <= resetBtn.y + resetBtn.h;
+
+    p.stroke(DARK_GREEN);
+    p.strokeWeight(3);
+    p.fill(hoveringReset ? p.color('#E9F7EF') : 255); 
+    p.rect(resetBtn.x, resetBtn.y, resetBtn.w, resetBtn.h, 14); 
+
+    p.noStroke();
+    p.fill(DARK_GREEN);  
+    p.textSize(20);
+    p.text('Reset ⏸️', resetBtn.x + resetBtn.w / 2, resetBtn.y + resetBtn.h / 2);
+
   };
 
   // function of start
@@ -136,6 +165,13 @@ registerSketch('sk4', function (p) {
         startMillis = p.millis();
         remaining = DURATION;
       }
+    }
+    
+    if (p.mouseX >= resetBtn.x && p.mouseX <= resetBtn.x + resetBtn.w &&
+      p.mouseY >= resetBtn.y && p.mouseY <= resetBtn.y + resetBtn.h) {
+      running = false;
+      remaining = DURATION;  
+      startMillis = 0; 
     }
   };
 });
