@@ -7,6 +7,11 @@ registerSketch('sk4', function (p) {
   const outerR = 280; // outer circle radius
   const innerR = 220; // inner circle radius
 
+  // colors
+  const DARK_GREEN = p.color('#0f5132'); 
+  const BABY_GREEN = p.color('#CFEFD6');  
+  const TRACK_WHITE = p.color(255);     
+
   // Define the focus time
   const FOCUS_MIN = 25; 
   const DURATION = FOCUS_MIN * 60; 
@@ -76,7 +81,7 @@ registerSketch('sk4', function (p) {
     // process ring
     p.noFill();
     p.strokeCap(p.ROUND);
-    p.stroke(230); 
+    p.stroke(TRACK_WHITE); 
     p.strokeWeight(ringThickness);  
     p.arc(cx, cy, ringDia, ringDia, -90, 270);
 
@@ -84,7 +89,7 @@ registerSketch('sk4', function (p) {
     const startAng = -90;  
     const endAng   = startAng + 360 * progress;
     if (progress > 0) {
-      p.stroke(0); 
+      p.stroke(BABY_GREEN); 
       p.arc(cx, cy, ringDia, ringDia, startAng, endAng);
     }
 
@@ -93,7 +98,7 @@ registerSketch('sk4', function (p) {
     const dotX = cx + midR * p.cos(angle); 
     const dotY = cy + midR * p.sin(angle);   
     p.noStroke();
-    p.fill(0);
+    p.fill(BABY_GREEN);
     p.circle(dotX, dotY, 30);
 
     // Text display
@@ -111,13 +116,12 @@ registerSketch('sk4', function (p) {
       p.mouseY >= startBtn.y && p.mouseY <= startBtn.y + startBtn.h;
 
     // button
-    p.stroke(0);
-    p.fill(hovering ? 240 : 255);
+    p.stroke(DARK_GREEN);           
+    p.fill(hovering ? p.color('#E9F7EF') : 255); 
     p.rect(startBtn.x, startBtn.y, startBtn.w, startBtn.h, 14);
-
-    // button words
+  
     p.noStroke();
-    p.fill(0);
+    p.fill(DARK_GREEN);  
     p.textSize(20);
     p.text('Start ▶️', startBtn.x + startBtn.w / 2, startBtn.y + startBtn.h / 2);
   };
