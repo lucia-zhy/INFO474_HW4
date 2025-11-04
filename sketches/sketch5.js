@@ -103,12 +103,14 @@ registerSketch('sk5', function (p) {
     p.text("Relationship between Music Genres & Average Depression Levels", W / 2, 80);
 
     p.textSize(25);
-    p.text("higher levels score = more depressed", W / 2, 150);
+    p.text("higher levels score = more depressed", W / 2, 145);
 
+    p.push();
     p.textSize(16);
-    p.textAlign(p.RIGHT, p.TOP);
-    p.text("Data Source: Music & Mental Health Survey Results \n (dataset from Kaggle)" + "\n Author: Lucia Zou",
-      W - 500, 200, 420, 400);
+    p.textAlign(p.LEFT, p.TOP);
+    p.text("Data Source: Music & Mental Health Survey Results (Kaggle)" + "\n Author: Lucia Zou",
+      W - 400, 200, 420, 400);
+    p.pop();
   }
 
   // helper method to draw the legend for color scale
