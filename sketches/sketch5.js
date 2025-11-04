@@ -16,27 +16,38 @@ registerSketch('sk5', function (p) {
     { name:'EDM', avg: 5.24},   { name:'Rock', avg: 5.24},
     { name:'Rap', avg: 4.0},   { name:'R&B', avg: 3.83},
     { name:'Latin', avg: 3.0},   { name:'Gospel', avg: 2.67},
-  ];
+  ].sort((a, b) => b.avg - a.avg); // sort descending by average depression levels
 
-  const layout = [
-    {u:.5,v:.18},{u:.35,v:.28},{u:.65,v:.28},
-    {u:.27,v:.45},{u:.73,v:.45},
-    {u:.38,v:.63},{u:.62,v:.63},{u:.5,v:.78}
-  ];
+  // positions inside the tear. Largest avg at top, smallest at bottom
+  const POS = {
+    "Lo-fi":   { u: 0.46, v: 0.2 },  // top-left of cluster
+    "Hip Hop": { u: 0.7, v: 0.33 },  // top-right of cluster
+    "Rock":    { u: 0.25, v: 0.4 },  // center
+    "EDM":     { u: 0.5, v: 0.5 },  // right-upper
+    "Rap":     { u: 0.27, v: 0.60 },  // lower-left
+    "R&B":     { u: 0.72, v: 0.65 },  // lower-right
+    "Latin":   { u: 0.45, v: 0.72 },  // bottom-center
+    "Gospel":  { u: 0.64, v: 0.82 }   // very bottom
+  };
 
   let bubbles = [];
 
   p.setup = function () {
     p.createCanvas(W, H);
     p.textFont('Georgia');
-    const minR = 60;
-    const maxR = 120;
-    bubbles = GENRES.map((g, i) => {
-      const r = p.map(g.avg, 0, 10, minR, maxR);
-      const u = layout[i].u, v = layout[i].v;
+    p.textAlign(p.CENTER, p.CENTER);
+
+    const minR = 45;
+    const maxR = 105;
+    const minA = Math.PI * minR * minR;
+    const maxA = Math.PI * maxR * maxR;
+    bubbles = GENRES.map((g) => {
+      const A = p.map(g.avg, 0, 10, minA, maxA);
+      const r = Math.sqrt(A / Math.PI);
+      const { u, v } = POS[g.name];
       return {
-        x: (cx - tearW/2) + u * tearW,
-        y:  topY + v * tearH,
+        x: (cx - tearW / 2) + u * tearW,
+        y: topY + v * tearH,
         r,
         genre: g
       };
