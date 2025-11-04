@@ -89,9 +89,11 @@ registerSketch('sk5', function (p) {
       p.fill(fillCol);
       p.circle(b.x, b.y, b.r * 2);
 
-      // labels
+      // bubble labels
+      p.push();
       p.fill(labelCol);
-      p.textSize(28);
+      p.textAlign(p.CENTER, p.CENTER);
+      p.textSize(26);
       p.text(b.genre.name, b.x, b.y);
     }
     drawLegend();
