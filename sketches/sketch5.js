@@ -29,13 +29,34 @@ registerSketch('sk5', function (p) {
     "Latin":   { u: 0.45, v: 0.72 },  // bottom-center
     "Gospel":  { u: 0.64, v: 0.82 }   // very bottom
   };
+  
+  // color scale: light for low, dark for high
+  let COLOR_LIGHT, COLOR_DARK;
+  const getBubbleColor = (avg, minAvg, maxAvg) => {
+    const t = p.constrain((avg - minAvg) / (maxAvg - minAvg || 1), 0, 1);
+    // higher -> darker: lerp from LIGHT to DARK using t
+    return p.lerpColor(COLOR_LIGHT, COLOR_DARK, t);
+  };
+
+  // choose text color for contrast
+  const getLabelColor = (avg, minAvg, maxAvg) => {
+    const t = p.constrain((avg - minAvg) / (maxAvg - minAvg || 1), 0, 1);
+    return (t >= 0.5) ? p.color(255) : p.color(15, 37, 64); // white or deep blue
+  };
 
   let bubbles = [];
+  let minAvg, maxAvg;
 
   p.setup = function () {
     p.createCanvas(W, H);
     p.textFont('Georgia');
     p.textAlign(p.CENTER, p.CENTER);
+    p.noStroke();
+
+    COLOR_LIGHT = p.color(198, 214, 232); // light blue
+    COLOR_DARK  = p.color(28, 64, 103); // dark blue
+    minAvg = Math.min(...GENRES.map(g => g.avg));
+    maxAvg = Math.max(...GENRES.map(g => g.avg));
 
     const minR = 45;
     const maxR = 105;
@@ -60,14 +81,48 @@ registerSketch('sk5', function (p) {
     p.stroke(0);
     p.strokeWeight(1);
     drawTear(cx, topY, tearW, tearH);
+    // assign colors to bubbles based on average depression levels
     for (const b of bubbles) {
-      p.noStroke(); 
-      p.fill(0);
+      const fillCol = getBubbleColor(b.genre.avg, minAvg, maxAvg);
+      const labelCol = getLabelColor(b.genre.avg, minAvg, maxAvg);
+      p.noStroke();
+      p.fill(fillCol);
       p.circle(b.x, b.y, b.r * 2);
-      p.fill(255); 
-      p.textAlign(p.CENTER, p.CENTER);
+
+      // labels
+      p.fill(labelCol);
+      p.textSize(28);
       p.text(b.genre.name, b.x, b.y);
     }
+    drawLegend();
+  }
+
+  // legend: horizontal gradient bar + labels
+  function drawLegend() {
+    const barW = 560;
+    const barH = 22;
+    const x = (W - barW) / 2;
+    const y = H - 120;
+
+    // color strip (left = light blue, right = dark blue)
+    for (let i = 0; i < barW; i++) {
+      const t = i / (barW - 1);
+      const c = p.lerpColor(COLOR_LIGHT, COLOR_DARK, t);
+      p.stroke(c);
+      p.line(x + i, y, x + i, y + barH);
+    }
+
+    // min/max labels for the average depression levels' color scale
+    p.noStroke();
+    p.fill(30);
+    p.textSize(22);
+    p.textAlign(p.CENTER, p.TOP);
+    p.text(minAvg.toFixed(2), x, y + barH + 8);
+    p.text(maxAvg.toFixed(2), x + barW, y + barH + 8);
+
+    // axis caption for the average depression levels' color scale
+    p.textAlign(p.CENTER, p.BOTTOM);
+    p.text("Lower  <  Average Depression Levels (0 - 10) >  Higher", x + barW / 2, y - 10);
   }
 
   // helper method to create tear shape
