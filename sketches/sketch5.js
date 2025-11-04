@@ -6,7 +6,7 @@ registerSketch('sk5', function (p) {
 
   // tear dimensions and position
   const cx = W / 2;
-  const topY = 190;  
+  const topY = 230;  
   const tearW = W * 0.56;  
   const tearH = H * 0.6; 
 
@@ -100,10 +100,10 @@ registerSketch('sk5', function (p) {
     p.fill(15, 37, 64);
     p.textAlign(p.CENTER, p.TOP);
     p.textSize(32);
-    p.text("Relationship between Music Genres & Average Depression Levels", W / 2, 70);
+    p.text("Relationship between Music Genres & Average Depression Levels", W / 2, 80);
 
     p.textSize(25);
-    p.text("higher levels score = more depressed", W / 2, 130);
+    p.text("higher levels score = more depressed", W / 2, 150);
   }
 
   // helper method to draw the legend for color scale
