@@ -6,7 +6,7 @@ registerSketch('sk5', function (p) {
 
   // tear dimensions and position
   const cx = W / 2;
-  const topY = 230;  
+  const topY = 300;  
   const tearW = W * 0.56;  
   const tearH = H * 0.6; 
 
@@ -135,17 +135,17 @@ registerSketch('sk5', function (p) {
     // Add caption text
     p.fill(15, 37, 64);
     p.textAlign(p.CENTER, p.TOP);
-    p.textSize(32);
-    p.text("Relationship between Music Genres & Average Depression Levels", W / 2, 80);
+    p.textSize(34);
+    p.text("Tears in Sound💧: How Music Genres Relate to Depression", W / 2, 90);
 
-    p.textSize(25);
-    p.text("higher levels score = more depressed", W / 2, 145);
+    p.textSize(26);
+    p.text("higher levels score = darker blue color = more depressed", W / 2, 160);
 
     p.push();
-    p.textSize(16);
+    p.textSize(20);
     p.textAlign(p.LEFT, p.TOP);
     p.text("Data Source: Music & Mental Health Survey Results (Kaggle)" + "\n Image Creator: Lucia Zou",
-      W - 400, 200, 420, 400);
+      W - 410, 235, 420, 400);
     p.pop();
   }
 
