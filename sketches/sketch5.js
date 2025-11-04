@@ -79,7 +79,7 @@ registerSketch('sk5', function (p) {
   p.draw = function () {
     p.background(250);
     p.noFill();
-    p.stroke(0);
+    p.stroke(28, 64, 103);
     p.strokeWeight(1);
     drawTear(cx, topY, tearW, tearH);
 
