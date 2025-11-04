@@ -1,4 +1,4 @@
-// Example 2
+// Instance-mode sketch for tab 5, HW5
 registerSketch('sk5', function (p) {
   p.setup = function () {
     p.createCanvas(p.windowWidth, p.windowHeight);
