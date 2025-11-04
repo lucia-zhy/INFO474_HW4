@@ -199,8 +199,8 @@ registerSketch('sk5', function (p) {
     p.fill(30);
     p.textSize(22);
     p.textAlign(p.CENTER, p.TOP);
-    p.text(minAvg.toFixed(2), x, y + barH + 8);
-    p.text(maxAvg.toFixed(2), x + barW, y + barH + 8);
+    p.text(minAvg.toFixed(2), x + 90, y + barH + 8);
+    p.text(maxAvg.toFixed(2), x + barW - 90, y + barH + 8);
 
     // axis caption for the average depression levels' color scale
     p.textAlign(p.CENTER, p.BOTTOM);
