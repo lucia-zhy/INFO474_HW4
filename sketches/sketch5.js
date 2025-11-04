@@ -163,11 +163,15 @@ registerSketch('sk5', function (p) {
     p.textSize(18);
 
     const w = Math.max(p.textWidth(title), p.textWidth(val)) + pad * 2;
-    const h = 18*2 + pad * 3;
+    const h = 18 * 2 + pad * 3;
 
     // revise position if overflowing canvas
-    if (tx + w > W - 16) tx = W - 16 - w;
-    if (ty < 16) ty = 16;
+    if (tx + w > W - 16) {
+      tx = W - 16 - w;
+    }
+    if (ty < 16) {
+      ty = 16;
+    }
 
     // draw tooltip box
     p.noStroke();
@@ -177,7 +181,7 @@ registerSketch('sk5', function (p) {
     p.rect(tx, ty, w, h, 8);
     p.fill(20, 32, 54);
     p.text(title, tx + pad, ty + pad);
-    p.text(val, tx + pad, ty + pad + 22);
+    p.text(val, tx + pad, ty + pad + 24);
   }
 
   // helper method to draw the legend for color scale
@@ -185,7 +189,6 @@ registerSketch('sk5', function (p) {
     const barW = 560;
     const barH = 22;
     const x = (W - barW) / 2;
-    //const y = H - 120;
     const gap = 56; // gap between tear bottom and legend top
     const tearBottom = topY + tearH;
     const y = Math.min(H - 140, tearBottom + gap); // close to tear bottom, but not too low
