@@ -29,7 +29,7 @@ registerSketch('sk5', function (p) {
     "Latin":   { u: 0.45, v: 0.72 },  // bottom-center
     "Gospel":  { u: 0.64, v: 0.82 }   // very bottom
   };
-  
+
   // color scale: light for low, dark for high
   let COLOR_LIGHT, COLOR_DARK;
   const getBubbleColor = (avg, minAvg, maxAvg) => {
@@ -95,9 +95,18 @@ registerSketch('sk5', function (p) {
       p.text(b.genre.name, b.x, b.y);
     }
     drawLegend();
+
+    // Add caption text
+    p.fill(15, 37, 64);
+    p.textAlign(p.CENTER, p.TOP);
+    p.textSize(32);
+    p.text("Relationship between Music Genres & Average Depression Levels", W / 2, 70);
+
+    p.textSize(25);
+    p.text("higher levels score = more depressed", W / 2, 130);
   }
 
-  // legend: horizontal gradient bar + labels
+  // helper method to draw the legend for color scale
   function drawLegend() {
     const barW = 560;
     const barH = 22;
