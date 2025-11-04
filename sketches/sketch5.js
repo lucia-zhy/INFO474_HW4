@@ -104,6 +104,11 @@ registerSketch('sk5', function (p) {
 
     p.textSize(25);
     p.text("higher levels score = more depressed", W / 2, 150);
+
+    p.textSize(16);
+    p.textAlign(p.RIGHT, p.TOP);
+    p.text("Data Source: Music & Mental Health Survey Results \n (dataset from Kaggle)" + "\n Author: Lucia Zou",
+      W - 500, 200, 420, 400);
   }
 
   // helper method to draw the legend for color scale
