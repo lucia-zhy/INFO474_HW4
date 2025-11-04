@@ -111,7 +111,10 @@ registerSketch('sk5', function (p) {
     const barW = 560;
     const barH = 22;
     const x = (W - barW) / 2;
-    const y = H - 120;
+    //const y = H - 120;
+    const gap = 56; // gap between tear bottom and legend top
+    const tearBottom = topY + tearH;
+    const y = Math.min(H - 140, tearBottom + gap); // close to tear bottom, but not too low
 
     // color strip (left = light blue, right = dark blue)
     for (let i = 0; i < barW; i++) {
