@@ -204,7 +204,7 @@ registerSketch('sk5', function (p) {
 
     // axis caption for the average depression levels' color scale
     p.textAlign(p.CENTER, p.BOTTOM);
-    p.text("Lower  <——  Average Depression Levels (0 - 10) ——>  Higher", x + barW / 2, y - 10);
+    p.text("Lower  <--- Average Depression Levels (0 - 10) --->  Higher", x + barW / 2, y - 10);
   }
 
   // helper method to create tear shape
