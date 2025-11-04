@@ -46,6 +46,7 @@ registerSketch('sk5', function (p) {
 
   let bubbles = [];
   let minAvg, maxAvg;
+  let hovered = null; // interactivity; currently hovered bubble
 
   p.setup = function () {
     p.createCanvas(W, H);
@@ -81,6 +82,15 @@ registerSketch('sk5', function (p) {
     p.stroke(0);
     p.strokeWeight(1);
     drawTear(cx, topY, tearW, tearH);
+
+    // detect hovered bubble
+    hovered = null;
+    for (const b of bubbles) {
+      if (p.dist(p.mouseX, p.mouseY, b.x, b.y) <= b.r) {
+        hovered = b;
+      }
+    }
+
     // assign colors to bubbles based on average depression levels
     for (const b of bubbles) {
       const fillCol = getBubbleColor(b.genre.avg, minAvg, maxAvg);
@@ -89,13 +99,33 @@ registerSketch('sk5', function (p) {
       p.fill(fillCol);
       p.circle(b.x, b.y, b.r * 2);
 
+      // if hovered, draw highlight ring
+      if (hovered === b) {
+        p.stroke(255, 220); 
+        p.strokeWeight(6);
+        p.noFill(); 
+        p.circle(b.x, b.y, b.r * 2 + 6);
+        p.stroke(0, 80); 
+        p.strokeWeight(1.5);
+        p.circle(b.x, b.y, b.r * 2 + 6);
+      }
+
       // bubble labels
       p.push();
       p.fill(labelCol);
       p.textAlign(p.CENTER, p.CENTER);
       p.textSize(26);
       p.text(b.genre.name, b.x, b.y);
+      p.pop();
     }
+
+    if (hovered) {
+      p.cursor('pointer');
+      drawTooltip(hovered);
+    } else {
+      p.cursor('default');
+    }
+
     drawLegend();
 
     // Add caption text
@@ -113,6 +143,37 @@ registerSketch('sk5', function (p) {
     p.text("Data Source: Music & Mental Health Survey Results (Kaggle)" + "\n Author: Lucia Zou",
       W - 400, 200, 420, 400);
     p.pop();
+  }
+
+  // helper method to draw tooltip for hovered bubble, express the average levels
+  function drawTooltip(b) {
+    const title = b.genre.name;
+    const val = `Avg Depression Levels: ${b.genre.avg.toFixed(2)}`;
+
+    // tooltip position
+    let tx = b.x + b.r + 14;
+    let ty = b.y - b.r - 10;
+    const pad = 10;
+
+    p.textAlign(p.LEFT, p.TOP);
+    p.textSize(18);
+
+    const w = Math.max(p.textWidth(title), p.textWidth(val)) + pad * 2;
+    const h = 18*2 + pad * 3;
+
+    // revise position if overflowing canvas
+    if (tx + w > W - 16) tx = W - 16 - w;
+    if (ty < 16) ty = 16;
+
+    // draw tooltip box
+    p.noStroke();
+    p.fill(0, 20); 
+    p.rect(tx + 2, ty + 3, w, h, 8);
+    p.fill(255);   
+    p.rect(tx, ty, w, h, 8);
+    p.fill(20, 32, 54);
+    p.text(title, tx + pad, ty + pad);
+    p.text(val, tx + pad, ty + pad + 22);
   }
 
   // helper method to draw the legend for color scale
