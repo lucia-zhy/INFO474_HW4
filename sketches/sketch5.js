@@ -12,10 +12,14 @@ registerSketch('sk5', function (p) {
 
   // define people's favorite music genres and their average depression levels
   const GENRES = [
-    { name:'Lo-fi', avg: 6.6}, { name:'Hip Hop', avg: 5.8},
-    { name:'EDM', avg: 5.24},   { name:'Rock', avg: 5.24},
-    { name:'Rap', avg: 4.0},   { name:'R&B', avg: 3.83},
-    { name:'Latin', avg: 3.0},   { name:'Gospel', avg: 2.67},
+    { name:'Lo-fi', avg: 6.6}, 
+    { name:'Hip Hop', avg: 5.8},
+    { name:'EDM', avg: 5.24},   
+    { name:'Rock', avg: 5.24},
+    { name:'Rap', avg: 4.0},   
+    { name:'R&B', avg: 3.83},
+    { name:'Latin', avg: 3.0},   
+    { name:'Gospel', avg: 2.67},
   ].sort((a, b) => b.avg - a.avg); // sort descending by average depression levels
 
   // positions inside the tear. Largest avg at top, smallest at bottom
@@ -140,7 +144,7 @@ registerSketch('sk5', function (p) {
     p.push();
     p.textSize(16);
     p.textAlign(p.LEFT, p.TOP);
-    p.text("Data Source: Music & Mental Health Survey Results (Kaggle)" + "\n Author: Lucia Zou",
+    p.text("Data Source: Music & Mental Health Survey Results (Kaggle)" + "\n Image Creator: Lucia Zou",
       W - 400, 200, 420, 400);
     p.pop();
   }
