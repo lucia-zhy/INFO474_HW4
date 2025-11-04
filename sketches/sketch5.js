@@ -20,14 +20,14 @@ registerSketch('sk5', function (p) {
 
   // positions inside the tear. Largest avg at top, smallest at bottom
   const POS = {
-    "Lo-fi":   { u: 0.46, v: 0.2 },  // top-left of cluster
-    "Hip Hop": { u: 0.7, v: 0.33 },  // top-right of cluster
-    "Rock":    { u: 0.25, v: 0.4 },  // center
-    "EDM":     { u: 0.5, v: 0.5 },  // right-upper
-    "Rap":     { u: 0.27, v: 0.60 },  // lower-left
-    "R&B":     { u: 0.72, v: 0.65 },  // lower-right
-    "Latin":   { u: 0.45, v: 0.72 },  // bottom-center
-    "Gospel":  { u: 0.64, v: 0.82 }   // very bottom
+    "Lo-fi":   { u: 0.46, v: 0.2 },  
+    "Hip Hop": { u: 0.7, v: 0.33 }, 
+    "Rock":    { u: 0.27, v: 0.38 },
+    "EDM":     { u: 0.51, v: 0.5 }, 
+    "Rap":     { u: 0.2, v: 0.58 }, 
+    "R&B":     { u: 0.72, v: 0.65 }, 
+    "Latin":   { u: 0.4, v: 0.7 }, 
+    "Gospel":  { u: 0.59, v: 0.82 } 
   };
 
   // color scale: light for low, dark for high
